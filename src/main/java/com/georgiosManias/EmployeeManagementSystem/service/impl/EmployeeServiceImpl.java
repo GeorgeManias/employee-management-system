@@ -1,6 +1,7 @@
 package com.georgiosManias.EmployeeManagementSystem.service.impl;
 
 import com.georgiosManias.EmployeeManagementSystem.entities.Employee;
+import com.georgiosManias.EmployeeManagementSystem.repository.EmployeeRepository;
 import com.georgiosManias.EmployeeManagementSystem.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
@@ -11,34 +12,37 @@ import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private Map<Long, Employee> employees = new HashMap<>();
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
 
     @Override
     public Employee createEmployee(Employee employee) {
-        employees.put(employee.getId(), employee);
+        Employee savedEmployee = employeeRepository.save(employee);
         return employee;
     }
 
     @Override
-    public Collection<Employee> getAllEmployees() {
-        return employees.values();
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
     }
 
     @Override
     public Employee getEmployee(Long id) {
-        return employees.get(id);
+        return employeeRepository.findById(id).orElse(null);
     }
 
     @Override
     public Employee updateEmployee(Long id, Employee employee) {
         employee.setId(id);
-        employees.put(id,employee);
-        return employee;
+        return employeeRepository.save(employee);
     }
 
     @Override
     public String deleteEmployee(Long id) {
-        employees.remove(id);
+        employeeRepository.deleteById(id);
         return "The employee with id"+id +", has been removed";
     }
 }

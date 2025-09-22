@@ -1,6 +1,14 @@
 package com.georgiosManias.EmployeeManagementSystem.entities;
 
+import jakarta.annotation.Generated;
+import jakarta.persistence.*;
+import org.springframework.boot.autoconfigure.web.WebProperties;
+
+@Entity
+@Table(name = "employee_tbl")
 public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     private String fullname;
