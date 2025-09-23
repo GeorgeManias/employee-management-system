@@ -5,10 +5,7 @@ import com.georgiosManias.EmployeeManagementSystem.repository.EmployeeRepository
 import com.georgiosManias.EmployeeManagementSystem.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -45,4 +42,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeRepository.deleteById(id);
         return "The employee with id"+id +", has been removed";
     }
+
+    @Override
+    public Employee getEmployeeByFullname(String fullname) {
+        return employeeRepository.findByFullname(fullname).orElse(null);
+    }
+
+
 }

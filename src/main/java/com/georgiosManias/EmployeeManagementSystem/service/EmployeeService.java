@@ -2,7 +2,6 @@ package com.georgiosManias.EmployeeManagementSystem.service;
 
 import com.georgiosManias.EmployeeManagementSystem.entities.Employee;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface EmployeeService {
@@ -20,4 +19,9 @@ public interface EmployeeService {
 
     //Delete
     String deleteEmployee(Long id);
+
+    //GetByFullname
+    Employee getEmployeeByFullname(String fullname);
 }
+
+
