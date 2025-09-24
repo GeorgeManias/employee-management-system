@@ -5,6 +5,7 @@ import com.georgiosManias.EmployeeManagementSystem.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/employees")
@@ -49,6 +50,11 @@ public class EmployeeController {
     @GetMapping("fullname/{fullname}")
     public Employee getEmployeeByFullname(@PathVariable String fullname) {
         return employeeService.getEmployeeByFullname(fullname);
+    }
+
+    @GetMapping("age/{age}")
+    public List<Employee> getEmployeeByAge(@PathVariable int age){
+        return employeeService.getEmployeeByAge(age);
     }
 
 }

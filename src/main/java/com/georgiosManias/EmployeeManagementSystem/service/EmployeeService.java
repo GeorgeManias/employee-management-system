@@ -22,6 +22,9 @@ public interface EmployeeService {
 
     //GetByFullname
     Employee getEmployeeByFullname(String fullname);
-}
 
+    //GetByAge
+    List<Employee> getEmployeeByAge(int age);
+
+}
 
