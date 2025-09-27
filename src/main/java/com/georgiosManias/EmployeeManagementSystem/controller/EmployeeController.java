@@ -57,6 +57,10 @@ public class EmployeeController {
         return employeeService.getEmployeeByAge(age);
     }
 
+    @GetMapping("search/{age}/{fullname}")
+    public List<Employee> getEmployeeByAgeAndFullname(@PathVariable int age, @PathVariable String fullname){
+        return employeeService.getEmployeeByAgeAndFullname(age, fullname);
+    }
 }
 
 

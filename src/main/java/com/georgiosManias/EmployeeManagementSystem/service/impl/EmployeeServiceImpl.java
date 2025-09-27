@@ -54,4 +54,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findByAge(age);
     }
 
+    @Override
+    public List<Employee> getEmployeeByAgeAndFullname(int age, String fullname){
+        return employeeRepository.findByAgeAndFullname(age, fullname);
+    }
+
 }

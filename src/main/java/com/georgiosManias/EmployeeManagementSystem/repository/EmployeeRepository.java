@@ -12,4 +12,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
     List<Employee> findByAge(int age);
 
+    List<Employee> findByAgeAndFullname(int age, String fullname);
+
 }
