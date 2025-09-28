@@ -5,7 +5,6 @@ import com.georgiosManias.EmployeeManagementSystem.repository.EmployeeRepository
 import com.georgiosManias.EmployeeManagementSystem.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -45,18 +44,19 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeByFullname(String fullname) {
-        return employeeRepository.findByFullname(fullname).orElse(null);
+    public List<Employee> searchByFullname(String fullname){
+        return employeeRepository.searchByFullname(fullname);
     }
 
     @Override
-    public List<Employee> getEmployeeByAge(int age) {
-        return employeeRepository.findByAge(age);
+    public List<Employee> searchByAge(Integer age){
+        return employeeRepository.searchByAge(age);
     }
 
     @Override
-    public List<Employee> getEmployeeByAgeAndFullname(int age, String fullname){
-        return employeeRepository.findByAgeAndFullname(age, fullname);
+    public List<Employee> searchByFullnameAndAge(String fullname, Integer age) {
+        return employeeRepository.searchByFullnameAndAge(fullname, age);
     }
+
 
 }

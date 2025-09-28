@@ -47,20 +47,20 @@ public class EmployeeController {
         return employeeService.deleteEmployee(id);
     }
 
-    @GetMapping("fullname/{fullname}")
-    public Employee getEmployeeByFullname(@PathVariable String fullname) {
-        return employeeService.getEmployeeByFullname(fullname);
+
+    @GetMapping("/search")
+    public List<Employee> searchByFullnameAndAge(@RequestParam(required = false) String fullname, @RequestParam(required = false) Integer age) {
+        if (fullname != null && age != null) {
+            return employeeService.searchByFullnameAndAge(fullname, age);
+        } else if (fullname != null) {
+            return employeeService.searchByFullname(fullname);
+        } else if (age != null) {
+            return employeeService.searchByAge(age);
+        } else {
+            return List.of();
+        }
     }
 
-    @GetMapping("age/{age}")
-    public List<Employee> getEmployeeByAge(@PathVariable int age){
-        return employeeService.getEmployeeByAge(age);
-    }
-
-    @GetMapping("search/{age}/{fullname}")
-    public List<Employee> getEmployeeByAgeAndFullname(@PathVariable int age, @PathVariable String fullname){
-        return employeeService.getEmployeeByAgeAndFullname(age, fullname);
-    }
 }
 
 

@@ -1,6 +1,7 @@
 package com.georgiosManias.EmployeeManagementSystem.service;
 
 import com.georgiosManias.EmployeeManagementSystem.entities.Employee;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.util.List;
 
@@ -20,14 +21,10 @@ public interface EmployeeService {
     //Delete
     String deleteEmployee(Long id);
 
-    //GetByFullname
-    Employee getEmployeeByFullname(String fullname);
+    List<Employee> searchByFullname(String fullname);
 
-    //GetByAge
-    List<Employee> getEmployeeByAge(int age);
+    List<Employee> searchByAge(Integer age);
 
-    //GetByAge&Fullmame
-    List<Employee> getEmployeeByAgeAndFullname(int age, String fullname);
-
+    List<Employee> searchByFullnameAndAge(String fullname, Integer age);
 }
 
