@@ -17,6 +17,8 @@ public class Employee {
 
     private int departmentID;
 
+    private String email;
+
 
     //========================
     //Getters - Setters START
@@ -53,15 +55,23 @@ public class Employee {
         this.departmentID = departmentID;
     }
 
-    //Getters - Setters END
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+//Getters - Setters END
     //========================
 
 
-    public Employee(long id, String fullname, int age, int departmentID) {
+    public Employee(long id, String fullname, int age, int departmentID, String email) {
         this.id = id;
         this.fullname = fullname;
         this.age = age;
         this.departmentID = departmentID;
+        this.email=email;
     }
 
     public Employee() {

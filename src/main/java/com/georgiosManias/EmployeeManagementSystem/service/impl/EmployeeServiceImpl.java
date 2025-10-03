@@ -2,6 +2,7 @@ package com.georgiosManias.EmployeeManagementSystem.service.impl;
 
 import com.georgiosManias.EmployeeManagementSystem.entities.Employee;
 import com.georgiosManias.EmployeeManagementSystem.repository.EmployeeRepository;
+import com.georgiosManias.EmployeeManagementSystem.service.EmailService;
 import com.georgiosManias.EmployeeManagementSystem.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +11,21 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final EmailService emailService;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, EmailService emailService) {
         this.employeeRepository = employeeRepository;
+        this.emailService = emailService;
     }
 
     @Override
     public Employee createEmployee(Employee employee) {
         Employee savedEmployee = employeeRepository.save(employee);
+
+        if(savedEmployee.getEmail()!=null&&!savedEmployee.getEmail().isEmpty()){
+            emailService.sendEmployeeWelcomeEmail(savedEmployee.getEmail(), employee.getFullname());
+        }
+
         return employee;
     }
 
