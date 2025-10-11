@@ -1,14 +1,6 @@
-package com.georgiosManias.EmployeeManagementSystem.entities;
+package com.georgiosManias.EmployeeManagementSystem.payload.request;
 
-import jakarta.annotation.Generated;
-import jakarta.persistence.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
-
-@Entity
-@Table(name = "employee_tbl")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class EmployeeRequest {
     private long id;
 
     private String fullname;
@@ -21,9 +13,17 @@ public class Employee {
 
     private String password;
 
+    public EmployeeRequest(long id, String fullname, int age, int departmentID, String email, String password) {
+        this.id = id;
+        this.fullname = fullname;
+        this.age = age;
+        this.departmentID = departmentID;
+        this.email = email;
+        this.password = password;
+    }
 
-    //========================
-    //Getters - Setters START
+    public EmployeeRequest() {
+    }
 
     public long getId() {
         return id;
@@ -71,22 +71,5 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    //Getters - Setters END
-    //========================
-
-
-    public Employee(long id, String fullname, int age, int departmentID, String email, String password) {
-        this.id = id;
-        this.fullname = fullname;
-        this.age = age;
-        this.departmentID = departmentID;
-        this.email=email;
-        this.password=password;
-    }
-
-    public Employee() {
-
     }
 }

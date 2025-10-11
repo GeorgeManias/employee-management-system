@@ -1,13 +1,15 @@
 package com.georgiosManias.EmployeeManagementSystem.service;
 
 import com.georgiosManias.EmployeeManagementSystem.entities.Employee;
+import com.georgiosManias.EmployeeManagementSystem.payload.request.EmployeeRequest;
+import com.georgiosManias.EmployeeManagementSystem.payload.response.EmployeeResponse;
 import jakarta.persistence.criteria.CriteriaBuilder;
 
 import java.util.List;
 
 public interface EmployeeService {
     //Create
-    Employee createEmployee(Employee employee);
+    EmployeeResponse createEmployee(EmployeeRequest employeeRequest);
 
     //GetAll
     List<Employee> getAllEmployees();

@@ -1,11 +1,18 @@
 package com.georgiosManias.EmployeeManagementSystem.service.impl;
 
 import com.georgiosManias.EmployeeManagementSystem.exception.ApplicationException;
+import com.georgiosManias.EmployeeManagementSystem.payload.request.EmailDetails;
 import com.georgiosManias.EmployeeManagementSystem.service.EmailService;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class EmailServiceImpl implements EmailService {
@@ -16,20 +23,28 @@ public class EmailServiceImpl implements EmailService {
         this.mailSender = mailSender;
     }
 
+    @Value("${spring.mail.username}")
+    private String senderEmail;
+
     @Override
-    public void sendEmployeeWelcomeEmail(String to, String employeeName) {
+    public void sendEmailAlert(EmailDetails emailDetails) {
 
         try {
-            SimpleMailMessage message = new SimpleMailMessage();
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, StandardCharsets.UTF_8.name());
 
-            message.setFrom("georgiosmanias.test@gmail.com");
-            message.setTo(to);
-            message.setSubject("Welcome to our Company");
-            message.setText("Hello " + employeeName + ",\n\nWelcome! You have been successfully registered.\n\n- ABC Corporation!!.");
+            helper.setFrom(senderEmail);
+            helper.setTo(emailDetails.getRecipient());
+            helper.setSubject(emailDetails.getSubject());
+            helper.setText(emailDetails.getMessageBody(), true);
 
             mailSender.send(message);
-            System.out.println("System has been sent.");
-        } catch (MailException e){ throw new ApplicationException("Email not send.");
+
+            System.out.println("Email sent successfully!!");
+
+
+        } catch (MessagingException e) {
+            throw new ApplicationException("Email not sent.");
         }
     }
 }

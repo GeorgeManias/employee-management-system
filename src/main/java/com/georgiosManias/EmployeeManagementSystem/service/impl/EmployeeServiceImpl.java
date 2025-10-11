@@ -1,6 +1,9 @@
 package com.georgiosManias.EmployeeManagementSystem.service.impl;
 
 import com.georgiosManias.EmployeeManagementSystem.entities.Employee;
+import com.georgiosManias.EmployeeManagementSystem.payload.request.EmailDetails;
+import com.georgiosManias.EmployeeManagementSystem.payload.request.EmployeeRequest;
+import com.georgiosManias.EmployeeManagementSystem.payload.response.EmployeeResponse;
 import com.georgiosManias.EmployeeManagementSystem.repository.EmployeeRepository;
 import com.georgiosManias.EmployeeManagementSystem.service.EmailService;
 import com.georgiosManias.EmployeeManagementSystem.service.EmployeeService;
@@ -19,15 +22,32 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee createEmployee(Employee employee) {
-        Employee savedEmployee = employeeRepository.save(employee);
+    public EmployeeResponse createEmployee(EmployeeRequest employeeRequest) {
+        Employee employee = new Employee();
+        employee.setFullname(employeeRequest.getFullname());
+        employee.setAge(employeeRequest.getAge());
+        employee.setEmail(employeeRequest.getEmail());
+        employee.setDepartmentID(employeeRequest.getDepartmentID());
+        employee.setPassword(employeeRequest.getPassword());
+        employeeRepository.save(employee);
 
-        if(savedEmployee.getEmail()!=null&&!savedEmployee.getEmail().isEmpty()){
-            emailService.sendEmployeeWelcomeEmail(savedEmployee.getEmail(), employee.getFullname());
-        }
+        EmailDetails emailDetails = new EmailDetails();
+        emailDetails.setRecipient(employee.getEmail());
+        emailDetails.setSubject("Account Creation");
+        emailDetails.setMessageBody("CONGRATULATIONS! " + employee.getFullname() +
+                " Your Account Has Been Successfully Created.");
+        emailService.sendEmailAlert(emailDetails);
 
-        return employee;
+        EmployeeResponse response = new EmployeeResponse();
+        response.setFullname(employee.getFullname());
+        response.setAge(employee.getAge());
+        response.setDepartmentID(employee.getDepartmentID());
+        response.setEmail(employee.getEmail());
+
+        return response;
     }
+
+
 
     @Override
     public List<Employee> getAllEmployees() {

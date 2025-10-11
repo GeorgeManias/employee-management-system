@@ -1,7 +1,10 @@
 package com.georgiosManias.EmployeeManagementSystem.controller;
 
 import com.georgiosManias.EmployeeManagementSystem.entities.Employee;
+import com.georgiosManias.EmployeeManagementSystem.payload.request.EmployeeRequest;
+import com.georgiosManias.EmployeeManagementSystem.payload.response.EmployeeResponse;
 import com.georgiosManias.EmployeeManagementSystem.service.EmployeeService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -20,8 +23,8 @@ public class EmployeeController {
 
     //Create
     @PostMapping
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeService.createEmployee(employee);
+    public ResponseEntity<EmployeeResponse> createEmployee(@RequestBody EmployeeRequest employeeRequest) {
+        return ResponseEntity.ok(employeeService.createEmployee(employeeRequest));
     }
 
     //Read All
